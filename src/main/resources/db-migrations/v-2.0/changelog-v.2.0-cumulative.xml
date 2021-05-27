@@ -5,4 +5,5 @@
     <include file="2021-05-27--01-id-primary-key.xml" relativeToChangelogFile="true"/>
     <include file="2021-05-27--02-add-sequence-for-id-column.xml" relativeToChangelogFile="true"/>
     <include file="2021-05-27--03-set-autoincrement-for-id-column.xml" relativeToChangelogFile="true"/>
+    <include file="2021-05-27--04-load-test-data.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

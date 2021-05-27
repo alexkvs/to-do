@@ -1,0 +1,20 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="alexkvs" id="1622119146586-2">
+        <sql>ALTER SEQUENCE id_seq RESTART WITH 1</sql>
+        <loadUpdateData tableName="users"
+                        primaryKey="id"
+                        separator=","
+                        quotchar="&quot;"
+                        encoding="UTF-8"
+                        file="users.csv"
+                        relativeToChangelogFile="true">
+            <!--column index="0" name="id" type="SKIP"/-->
+            <column index="0" name="first_name" type="STRING"/>
+            <column index="1" name="last_name" type="STRING"/>
+            <column index="2" name="email" type="STRING"/>
+        </loadUpdateData>
+    </changeSet>
+</databaseChangeLog>
