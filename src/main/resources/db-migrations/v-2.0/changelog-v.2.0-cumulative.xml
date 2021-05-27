@@ -1,0 +1,8 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <include file="2021-05-27--01-id-primary-key.xml" relativeToChangelogFile="true"/>
+    <include file="2021-05-27--02-add-sequence-for-id-column.xml" relativeToChangelogFile="true"/>
+    <include file="2021-05-27--03-set-autoincrement-for-id-column.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>
