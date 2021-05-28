@@ -1,0 +1,18 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="alexkvs" id="V-3.0-03-2">
+        <loadUpdateData tableName="todo"
+                        primaryKey="id"
+                        file="todo.csv"
+                        relativeToChangelogFile="true">
+            <column header="Id" name="id" type="SKIP"/>
+            <column header="UserId" name="user_id" type="NUMERIC"/>
+            <column header="Description" name="description" type="STRING"/>
+            <column header="Created" name="created" type="DATE"/>
+            <column header="Modified" name="modified" type="DATE"/>
+            <column header="Completed" name="completed" type="BOOLEAN"/>
+        </loadUpdateData>
+    </changeSet>
+</databaseChangeLog>
