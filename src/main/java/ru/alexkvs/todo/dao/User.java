@@ -1,6 +1,8 @@
 package ru.alexkvs.todo.dao;
 
-public class User {
+import org.springframework.hateoas.RepresentationModel;
+
+public class User extends RepresentationModel<User> {
     private long id;
     private String firstName;
     private String lastName;

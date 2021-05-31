@@ -10,22 +10,21 @@ import ru.alexkvs.todo.dao.UserDAO;
 @Controller
 @RequestMapping("/users")
 public class UserController {
+    private final UserDAO userDao;
 
-    private final UserDAO personDAO;
-
-    public UserController(UserDAO personDAO) {
-        this.personDAO = personDAO;
+    public UserController(UserDAO personDao) {
+        this.userDao = personDao;
     }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("users", personDAO.all());
+        model.addAttribute("users", userDao.all());
         return "users/index";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = {"application/hal+json"})
     public String getPerson(@PathVariable long id, Model model) {
-        model.addAttribute("user", personDAO.findById(id));
+        model.addAttribute("user", userDao.findById(id));
         return "users/user";
     }
 }
