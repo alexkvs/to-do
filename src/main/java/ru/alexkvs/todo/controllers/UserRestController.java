@@ -10,38 +10,40 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.alexkvs.todo.dao.Todo;
 import ru.alexkvs.todo.dao.TodoDao;
 import ru.alexkvs.todo.dao.User;
-import ru.alexkvs.todo.dao.UserDAO;
+import ru.alexkvs.todo.repositories.UserRepository;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/rest/users")
+@RequestMapping("/users")
 public class UserRestController {
-    private final UserDAO userDao;
+    private final UserRepository userRepository;
     private final TodoDao todoDao;
 
-    public UserRestController(UserDAO personDao, TodoDao todoDao) {
-        this.userDao = personDao;
+    public UserRestController(UserRepository userRepository, TodoDao todoDao) {
+        this.userRepository = userRepository;
         this.todoDao = todoDao;
     }
 
-    @GetMapping()
-    public Collection<User> index() {
-        return userDao.all();
+    @GetMapping(produces = {"application/hal+json"})
+    public Iterable<User> index() {
+        return userRepository.findAll();
     }
 
     @GetMapping(value = "/{userId}", produces = {"application/hal+json"})
     public User getUser(@PathVariable long userId) {
-        User user = userDao.findById(userId);
-        user.add(WebMvcLinkBuilder.linkTo(UserRestController.class).slash(userId).withSelfRel());
-        List<Todo> todoList = todoDao.getAllTasksForUser(userId);
-        if (!todoList.isEmpty()) {
-            Link ordersLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserRestController.class)
-                    .getTodosForUser(userId)).withRel("allOrders");
-            user.add(ordersLink);
-        }
-        return user;
+        Optional<User> user = userRepository.findById(userId);
+        user.ifPresent((u) -> {
+            u.add(WebMvcLinkBuilder.linkTo(UserRestController.class).slash(userId).withSelfRel());
+            List<Todo> todoList = todoDao.getAllTasksForUser(userId);
+            if (!todoList.isEmpty()) {
+                Link ordersLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserRestController.class)
+                        .getTodosForUser(userId)).withRel("allOrders");
+                u.add(ordersLink);
+            }
+        });
+        return user.get();
     }
 
     @GetMapping(value = "/{userId}/todo", produces = {"application/hal+json"})
