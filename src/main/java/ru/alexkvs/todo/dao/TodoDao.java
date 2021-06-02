@@ -21,9 +21,9 @@ public class TodoDao {
         return jdbcTemplate.query("SELECT * FROM todo", new BeanPropertyRowMapper<>(Todo.class));
     }
 
-    public List<Todo> getAllTasksForUser(long userId) {
-        return jdbcTemplate.query("SELECT * FROM todo WHERE user_id=?",
+    public List<Todo> getCustomerAllTasks(long id) {
+        return jdbcTemplate.query("SELECT * FROM todo WHERE customer_id=?",
                 new BeanPropertyRowMapper<>(Todo.class),
-                userId);
+                id);
     }
 }

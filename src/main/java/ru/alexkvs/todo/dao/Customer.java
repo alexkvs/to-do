@@ -5,13 +5,12 @@ import org.springframework.hateoas.RepresentationModel;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
-public class User extends RepresentationModel<User> {
+@Table(name = "customer")
+public class Customer extends RepresentationModel<Customer> {
 
     @Id
-    @SequenceGenerator(name = "id_seq", sequenceName = "id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_seq")
-    @Column(name = "id", updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
     @Column(name = "first_name")
@@ -23,7 +22,7 @@ public class User extends RepresentationModel<User> {
     @Column(name = "email")
     private String email;
 
-    public User() {
+    public Customer() {
     }
 
     public long getId() {
