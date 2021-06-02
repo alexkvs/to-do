@@ -1,0 +1,10 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <include file="2021-06-02_01-create-customer-table.xml" relativeToChangelogFile="true"/>
+    <include file="2021-06-02_02-create-todo-table.xml" relativeToChangelogFile="true"/>
+    <include file="2021-06-02_03-add-todo-foreign-key.xml" relativeToChangelogFile="true"/>
+    <include file="2021-06-02_04-load-test-customer-data.xml" relativeToChangelogFile="true"/>
+    <include file="2021-06-02_05-load-test-todo-data.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>
