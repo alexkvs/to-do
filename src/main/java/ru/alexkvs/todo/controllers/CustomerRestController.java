@@ -1,5 +1,9 @@
 package ru.alexkvs.todo.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -25,12 +29,27 @@ public class CustomerRestController {
         this.todoRepository = todoRepository;
     }
 
+    @Operation(summary = "Get all customers")
     @GetMapping(produces = {"application/hal+json"})
-    public Iterable<Customer> index() {
+    public List<Customer> index() {
         return customerRepository.findAll();
     }
 
     @GetMapping(value = "/{customerId}", produces = {"application/hal+json"})
+    @Operation(summary = "Find customer by ID",
+            tags = {"customers"},
+            description = "Returns a customer",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "The customer",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/hal+json",
+                                            schema = @Schema(implementation = Customer.class))
+                            }),
+                    @ApiResponse(responseCode = "404", description = "Customer not found")
+            })
     public Customer getCustomer(@PathVariable long customerId) {
         Customer customer = customerRepository.getById(customerId);
         customer.add(WebMvcLinkBuilder.linkTo(CustomerRestController.class).slash(customerId).withSelfRel());
@@ -40,6 +59,7 @@ public class CustomerRestController {
         return customer;
     }
 
+    @Operation(summary = "Get customer's tasks by its id")
     @GetMapping(value = "/{customerId}/todo", produces = {"application/hal+json"})
     public CollectionModel<Todo> getCustomerTodo(@PathVariable long customerId) {
         List<Todo> todoList = todoRepository.findAllByCustomerIdOrderByCreatedDesc(customerId);

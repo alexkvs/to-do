@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.alexkvs.todo.dao.Customer;
 import ru.alexkvs.todo.repositories.CustomerRepository;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
@@ -33,7 +35,7 @@ public class CustomerController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("customer") Customer customer) {
+    public String create(@Valid @ModelAttribute("customer") Customer customer) {
         customerRepository.save(customer);
         return "redirect:/customer";
     }
