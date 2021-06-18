@@ -40,4 +40,22 @@ public class CustomerController {
         return "redirect:/customer";
     }
 
+    @GetMapping("/{id}/edit")
+    public String newCustomer(@PathVariable long id, Model model) {
+        model.addAttribute("customer", customerRepository.findById(id).get());
+        return "customers/edit";
+    }
+
+    @PatchMapping("/{id}/update")
+    public String update(@Valid @ModelAttribute("customer") Customer customer, @PathVariable long id) {
+        customerRepository.findById(id).ifPresent(
+                found -> {
+                    found.setFirstName(customer.getFirstName());
+                    found.setLastName(customer.getLastName());
+                    found.setEmail(customer.getEmail());
+                    customerRepository.save(found);
+                }
+        );
+        return "redirect:/customer";
+    }
 }

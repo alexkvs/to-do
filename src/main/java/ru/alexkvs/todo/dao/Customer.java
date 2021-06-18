@@ -26,11 +26,10 @@ public class Customer extends RepresentationModel<Customer> implements Serializa
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false, unique = true)
-    @NotNull(message = "First Name cannot be null")
     private Long id;
 
     @Column(name = "first_name", nullable = false)
-    @NotBlank
+    @NotBlank(message = "First Name cannot be empty")
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
