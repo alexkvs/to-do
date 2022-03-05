@@ -41,7 +41,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}/edit")
-    public String newCustomer(@PathVariable long id, Model model) {
+    public String editCustomer(@PathVariable long id, Model model) {
         model.addAttribute("customer", customerRepository.findById(id).get());
         return "customers/edit";
     }
@@ -58,4 +58,17 @@ public class CustomerController {
         );
         return "redirect:/customer";
     }
+
+    /**
+     * Можно использовать для заполнения общих атрибутов модели, используемых во всех методах
+     */
+    /*@ModelAttribute
+    public void populateAllCustomersModel(Model model) {
+        model.addAttribute("customers", customerRepository.findAll());
+    }
+
+    @ModelAttribute
+    public void populateCustomerModel(@PathVariable long id, Model model) {
+        model.addAttribute("customer", customerRepository.findById(id).get());
+    }*/
 }

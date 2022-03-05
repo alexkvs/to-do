@@ -1,7 +1,7 @@
 package ru.alexkvs.todo.dao;
 
-import com.fasterxml.jackson.annotation.*;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.hateoas.RepresentationModel;
@@ -17,7 +17,6 @@ import java.util.Date;
 @Getter
 @Setter
 public class Todo extends RepresentationModel<Todo> implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false, unique = true)

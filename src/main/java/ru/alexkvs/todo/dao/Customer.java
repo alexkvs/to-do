@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -43,4 +44,13 @@ public class Customer extends RepresentationModel<Customer> implements Serializa
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customer")
     @JsonManagedReference
     private Set<Todo> tasks = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+
+    @JoinTable (name="customer_company_store",
+            joinColumns=@JoinColumn (name="customer_id"),
+            inverseJoinColumns=@JoinColumn(name="company_id"))
+    private List<Company> companies;
+
+
 }

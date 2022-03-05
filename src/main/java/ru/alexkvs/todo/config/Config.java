@@ -1,4 +1,4 @@
-package ru.alexkvs.todo;
+package ru.alexkvs.todo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
